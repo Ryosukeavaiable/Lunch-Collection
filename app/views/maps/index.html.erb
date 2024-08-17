@@ -1,0 +1,66 @@
+<div id='map' style='height: 600px; width: 100%;'></div>
+
+<script>
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: {lat: 35.6895, lng: 139.6917} // 東京の中心
+    });
+
+    <% @maps.each do |map| %>
+      var marker = new google.maps.Marker({
+        position: {lat: <%= map.latitude %>, lng: <%= map.longitude %>},
+        map: map,
+        title: "<%= map.title %>"
+      });
+
+      var infowindow = new google.maps.InfoWindow({
+        content: `
+    <h5><%= map.title %></h5>
+    <p><%= map.body %></p>
+    <% if map.photo.attached? %>
+      <img src="<%= url_for(map.photo) %>" alt="<%= map.title %>" style="width: 100px;"><br>
+    <%= link_to "編集", edit_map_path(map.id) %>
+    <%= link_to "削除", map_path(map), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    <% end %>
+  `
+   });
+
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });
+    <% end %>
+  }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPWZHICuSsOqEOQF-J1zmUzeHnVMzYmGw&callback=initMap" async defer></script>
+
+<h4><投稿一覧></h4>
+<table class="table">
+  <tr>
+    <th>店名</th>
+    <th>説明</th>
+    <th>料理の写真</th>
+    <th>住所</th>
+    <th></th>
+  </tr>
+<% @maps.each do |map| %>
+  <tr>
+    <td><%= image_tag map.user.get_profile_image(100,100) %></td>
+    <td><%= link_to map.user.name, user_path(map.user.id) %></td>
+    <td><%= map.title %></td>
+    <td><%= map.body %></td>
+    <td><% if map.photo.attached? %>
+        <%= image_tag map.photo, style: "width: 100px; height: 100px;" %>
+        <% else %>
+        画像がありません
+        <% end %></td>
+    <td><%= map.address %></td>
+    <td><%= link_to "編集", edit_map_path(map.id) %>
+        <%= link_to "削除", map_path(map.id),  method: :delete, data: { confirm: "本当に削除しますか？" } %>
+    </td>
+  </tr>
+<% end %>
+
+
+</table>

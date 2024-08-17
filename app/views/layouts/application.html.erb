@@ -5,12 +5,29 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= include_gon %>
+　　<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=default"></script>
+    <script src="https://kit.fontawesome.com/f1a9818934.js" crossorigin="anonymous"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPWZHICuSsOqEOQF-J1zmUzeHnVMzYmGw&callback=initMap"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <h1>Lunch-Collection</h1>
+    <% if user_signed_in? %>
+      <%= link_to "About", about_path %>
+      <%= link_to "マイページ", mypage_user_path(current_user) %>
+      <%= link_to "みんなの投稿", maps_path %>
+      <%= link_to "投稿する", new_map_path %>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "About", about_path %>
+      <%= link_to "みんなの投稿", maps_path %>
+      <%= link_to "ログイン", new_user_session_path %>
+      <%= link_to "サインアップ", new_user_registration_path %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

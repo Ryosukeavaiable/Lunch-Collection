@@ -1,0 +1,11 @@
+<h3>プロフィール編集</h3>
+<%= form_with model: @user do |f| %>
+<p>プロフィール写真</p>
+<%= f.file_field :profile_image, accept: "image/*" %>
+<p>ユーザー名</p>
+<%= f.text_field :name %>
+<p>自己紹介文</p>
+<%= f.text_area :introduction %><br>
+<%= f.submit "変更" %>
+<%= link_to '退会する', user_path(current_user), method: :delete, data: { confirm: '本当に退会しますか？' }, class: 'btn btn-danger' %>
+<% end %>
