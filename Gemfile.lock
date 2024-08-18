@@ -88,6 +88,10 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (3.1.2)
+    dotenv-rails (3.1.2)
+      dotenv (= 3.1.2)
+      railties (>= 6.1)
     erubi (1.13.0)
     ffi (1.17.0)
     geocoder (1.8.3)
@@ -129,6 +133,7 @@ GEM
     minitest (5.24.1)
     msgpack (1.7.2)
     multi_json (1.15.0)
+    mysql2 (0.5.6)
     net-imap (0.4.14)
       date
       net-protocol
@@ -143,8 +148,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     public_suffix (6.0.1)
-    puma (5.6.8)
-      nio4r (~> 2.0)
+    puma (3.12.6)
     racc (1.8.1)
     rack (2.2.9)
     rack-mini-profiler (2.3.4)
@@ -263,13 +267,18 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  dotenv-rails
   geocoder
   gmaps4rails
   gon
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)
-  puma (~> 5.0)
+  mysql2
+  net-imap
+  net-pop
+  net-smtp
+  puma (~> 3.11)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7, >= 6.1.7.8)
   sass-rails (>= 6)
