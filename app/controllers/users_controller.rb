@@ -1,14 +1,20 @@
 class UsersController < ApplicationController
-   
-   before_action :authenticate_user!
-   
+
+   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+   before_action :correct_user, only: [:edit, :update]
+
+   def correct_user
+    @user = User.find(params[:id])
+    redirect_to mypage_user_path(current_user), alert: "不正なアクセスです。" unless @user == current_user
+   end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = "退会が完了しました。ご利用ありがとうございました。"
     redirect_to new_user_registration_path
   end
-  
+
   def mypage
     @user = current_user
     @maps = @user.maps
@@ -32,7 +38,7 @@ class UsersController < ApplicationController
       flash[:notice] = "You have updated user successfully."
       redirect_to mypage_user_path(current_user)
     else
-      render_to :edit
+      render :edit
     end
   end
 

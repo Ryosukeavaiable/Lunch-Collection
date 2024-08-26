@@ -1,3 +1,14 @@
+<% if @user.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@user.errors.count, "error") %>が発生しました:</h2>
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
 <h3>プロフィール編集</h3>
 <%= form_with model: @user do |f| %>
 <p>プロフィール写真</p>

@@ -20,8 +20,8 @@
     <p><%= map.body %></p>
     <% if map.photo.attached? %>
       <img src="<%= url_for(map.photo) %>" alt="<%= map.title %>" style="width: 100px;"><br>
-    <%= link_to "編集", edit_map_path(map.id) %>
-    <%= link_to "削除", map_path(map), method: :delete, data: { confirm: "本当に削除しますか？" } %>
+
+
     <% end %>
   `
    });
@@ -38,16 +38,23 @@
 <h4><投稿一覧></h4>
 <table class="table">
   <tr>
+    <th>プロフィール写真</th>
+    <th>ユーザー名</th>
     <th>店名</th>
     <th>説明</th>
-    <th>料理の写真</th>
+    <th>写真</th>
     <th>住所</th>
-    <th></th>
   </tr>
 <% @maps.each do |map| %>
   <tr>
     <td><%= image_tag map.user.get_profile_image(100,100) %></td>
-    <td><%= link_to map.user.name, user_path(map.user.id) %></td>
+    <td>
+      <% if map.user == current_user %>
+      <%= link_to map.user.name, mypage_user_path(current_user) %>
+      <% else %>
+      <%= link_to map.user.name, user_path(map.user) %>
+      <% end %>
+    </td>
     <td><%= map.title %></td>
     <td><%= map.body %></td>
     <td><% if map.photo.attached? %>
@@ -56,8 +63,6 @@
         画像がありません
         <% end %></td>
     <td><%= map.address %></td>
-    <td><%= link_to "編集", edit_map_path(map.id) %>
-        <%= link_to "削除", map_path(map.id),  method: :delete, data: { confirm: "本当に削除しますか？" } %>
     </td>
   </tr>
 <% end %>

@@ -1,4 +1,11 @@
 class MapsController < ApplicationController
+ before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+ before_action :correct_map, only: [:edit, :update]
+ 
+ def correct_map
+    @map = Map.find(params[:id])
+    redirect_to mypage_user_path(current_user), alert: "不正なアクセスです。" unless @map.user == current_user
+ end
 
   def new
   @map = Map.new
@@ -33,7 +40,7 @@ class MapsController < ApplicationController
     @map = Map.find(params[:id])
     if @map.update(map_params)
     flash[:notice] = "You have updated user successfully."
-    redirect_to @map
+    redirect_to mypage_user_path(current_user)
     else
     render :edit
     end
@@ -42,8 +49,8 @@ class MapsController < ApplicationController
 
   def destroy
     map = Map.find(params[:id])
-    map.delete
-    redirect_to maps_path
+    map.delete mypage_user_path(current_user)
+    redirect_to
   end
 
   private

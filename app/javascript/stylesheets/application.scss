@@ -1,2 +1,25 @@
 @use '~bootstrap/scss/bootstrap';
 
+.about-under {
+  background-image: url('~images/human.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+  width: 150px;
+  object-fit: contain;
+}
+
+.about-main {
+  background-image: url('~images/food.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 50%;
+  object-fit: contain;
+}
+
+.about-text {
+  color: '#008000';
+  background-color: rgba(255, 255, 0, 0.5); /* 半透明の黄色 */
+  padding: 5px; /* テキストに少し余白を追加 */
+}

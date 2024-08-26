@@ -1,11 +1,12 @@
 class Map < ApplicationRecord
+validates :title, :body, :photo, :address, presence: true
 
 belongs_to :user
-  
+
 has_one_attached :photo
 
   before_save :geocode_address
-  
+
    private
 
   def geocode_address
@@ -18,5 +19,5 @@ has_one_attached :photo
       throw(:abort)
     end
   end
-  
+
 end
