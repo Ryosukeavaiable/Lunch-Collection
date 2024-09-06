@@ -14,6 +14,13 @@
     <%= f.label :title, "ショップ名" %><br>
     <%= f.text_field :title %>
   </div>
+  
+   <div class="field">
+    <%= f.label :genre, "ジャンル" %>
+    <%= f.select :genre, options_for_select(@genres), include_blank: '選択してください' %>
+    <!-- または新しいジャンルを直接入力可能にする場合 -->
+  </div>
+  
   <div>
     <%= f.label :body, "情報" %><br>
     <%= f.text_area :body %>

@@ -10,24 +10,31 @@
     <script src="https://kit.fontawesome.com/f1a9818934.js" crossorigin="anonymous"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPWZHICuSsOqEOQF-J1zmUzeHnVMzYmGw&callback=initMap"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <h1>Lunch-Collection</h1>
-    <% if user_signed_in? %>
-      <%= link_to "About", about_path %>
-      <%= link_to "マイページ", mypage_user_path(current_user) %>
-      <%= link_to "みんなの投稿", maps_path %>
-      <%= link_to "投稿する", new_map_path %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "About", about_path %>
-      <%= link_to "みんなの投稿", maps_path %>
-      <%= link_to "ログイン", new_user_session_path %>
-      <%= link_to "サインアップ", new_user_registration_path %>
-    <% end %>
-
-    <%= yield %>
-  </body>
+    <h1><img src="<%= asset_path('人1.jpg') %>" alt="Logo" class="logo-image">
+    Lunch-Collection
+    <img src="<%= asset_path('人1.jpg') %>" alt="Logo" class="logo-image"></h1>
+     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+    <div class="navbar-nav">
+      <%= link_to "About", about_path, class: "nav-item nav-link" %>
+      <% if user_signed_in? %>
+        <%= link_to "マイページ", mypage_user_path(current_user), class: "nav-item nav-link" %>
+        <%= link_to "みんなの投稿", maps_path, class: "nav-item nav-link" %>
+        <%= link_to "投稿する", new_map_path, class: "nav-item nav-link" %>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-item nav-link" %>
+      <% else %>
+        <%= link_to "みんなの投稿", maps_path, class: "nav-item nav-link" %>
+        <%= link_to "ログイン", new_user_session_path, class: "nav-item nav-link" %>
+        <%= link_to "サインアップ", new_user_registration_path, class: "nav-item nav-link" %>
+      <% end %>
+    </div>
+  </nav>
+  <main>
+     <%= yield %>
+  </main>
+</body>
 </html>
