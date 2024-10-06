@@ -67,6 +67,7 @@
         <th>写真</th>
         <th>住所</th>
         <th>コメント</th>
+        <th>いいね</th>
       </tr>
     </thead>
     <tbody>
@@ -109,6 +110,13 @@
                 </div>
               </div>
             <% end %>
+          <td>
+          <% if map.favorites.find_by(user: current_user) %>
+          <%= link_to '♥を取り消す', map_favorite_path(map), method: :delete, class: 'btn btn-danger' %>
+          <% else %>
+          <%= link_to '♥', map_favorite_path(map), method: :post, class: 'btn btn-primary' %>
+          <% end %><br>
+          <span><%= map.favorites.count %> お気に入り</span>
           </td>
         </tr>
       <% end %>

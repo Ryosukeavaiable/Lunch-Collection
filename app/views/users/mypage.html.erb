@@ -12,10 +12,27 @@
           <th>自己紹介</th>
           <td><%= @user.introduction %></td>
         </tr>
+        <tr>
+    <th>follows</th>
+    <th>
+      <%= link_to follows_user_path(@user) do %>
+        <%= @user.followers.count %>
+      <% end %>
+    </th>
+  </tr>
+  <tr>
+    <th>followers</th>
+    <th>
+      <%= link_to followers_user_path(@user) do %>
+        <%= @user.followeds.count %>
+      <% end %>
+    </th>
+  </tr>
       </table>
       <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-primary" %>
     </div>
   </div>
+
 
   <!-- マップ -->
   <h4 class="mb-4">マップ</h4>
