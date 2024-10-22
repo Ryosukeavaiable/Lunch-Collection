@@ -1,39 +1,47 @@
-<% if @map.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@map.errors.count, "error") %> prohibited this map from being saved:</h2>
-    <ul>
-      <% @map.errors.full_messages.each do |map| %>
-        <li><%= map %></li>
+<div class="container my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <% if @map.errors.any? %>
+        <div id="error_explanation" class="alert alert-danger">
+          <h2><%= pluralize(@map.errors.count, "error") %>が発生しました:</h2>
+          <ul>
+            <% @map.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-    </ul>
-  </div>
-<% end %>
 
-<%= form_with model: @map, local: true do |f| %>
-  <div>
-    <%= f.label :title, "ショップ名" %><br>
-    <%= f.text_field :title %>
-  </div>
+      <%= form_with model: @map, local: true do |f| %>
+        <div class="form-group">
+          <%= f.label :title, "ショップ名", class: "form-label" %>
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :genre, "ジャンル" %>
-    <%= f.select :genre, options_for_select(@genres, @map.genre), include_blank: '選択してください' %>
-    <!-- または新しいジャンルを直接入力可能にする場合 -->
-  </div>
+        <div class="form-group">
+          <%= f.label :genre, "ジャンル", class: "form-label" %>
+          <%= f.select :genre, options_for_select(@genres, @map.genre), { include_blank: '選択してください' }, class: "form-control" %>
+        </div>
 
-  <div>
-    <%= f.label :body, "情報" %><br>
-    <%= f.text_area :body %>
+        <div class="form-group">
+          <%= f.label :body, "情報", class: "form-label" %>
+          <%= f.text_area :body, class: "form-control", rows: 5 %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :photo, "写真", class: "form-label" %>
+          <%= f.file_field :photo, class: "form-control-file" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :address, "住所", class: "form-label" %>
+          <%= f.text_field :address, class: "form-control" %>
+        </div>
+
+        <div class="form-group text-center">
+          <%= f.submit "編集する", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <%= f.label :photo, "写真" %><br>
-    <%= f.file_field :photo %>
-  </div>
-  <div>
-    <%= f.label :address, "住所" %><br>
-    <%= f.text_field :address %>
-  </div>
-  <div>
-    <%= f.submit "編集する" %>
-  </div>
-<% end %>
+</div>

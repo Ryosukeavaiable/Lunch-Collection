@@ -102,14 +102,15 @@
               </p>
             <% end %>
 
-            <%= form_with model: [map, map.comments.build], local: true, class: "mt-2" do |f| %>
-              <div class="input-group">
-                <%= f.text_area :content, placeholder: "コメントを入力してください", class: "form-control" %>
-                <div class="input-group-append">
-                  <%= f.submit "投稿", class: "btn btn-outline-secondary" %>
-                </div>
-              </div>
-            <% end %>
+            <%= form_with(model: [map, map.comments.build], local: true) do |f| %>
+  <div class="input-group">
+    <%= f.text_area :content, placeholder: "コメントを入力してください", class: "form-control" %>
+    <div class="input-group-append">
+      <%= f.submit "投稿", class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>
+
           <td>
           <% if map.favorites.find_by(user: current_user) %>
           <%= link_to '♥を取り消す', map_favorite_path(map), method: :delete, class: 'btn btn-danger' %>
